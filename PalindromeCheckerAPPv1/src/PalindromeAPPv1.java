@@ -5,16 +5,23 @@ public class PalindromeAPPv1 {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter a string to check palindrome:");
         String input = sc.nextLine();
-        String normalized = input.replaceAll("\\s+", "").toLowerCase();
-        if (isPalindrome(normalized, 0, normalized.length() - 1)) {
-            System.out.println("The string is a palindrome (ignoring spaces and case).");
+        PalindromeChecker checker = new PalindromeChecker();
+        if (checker.checkPalindrome(input)) {
+            System.out.println("The string is a palindrome.");
         } else {
-            System.out.println("The string is not a palindrome (ignoring spaces and case).");
+            System.out.println("The string is not a palindrome.");
         }
         sc.close();
     }
+}
 
-    public static boolean isPalindrome(String str, int start, int end) {
+class PalindromeChecker {
+    public boolean checkPalindrome(String str) {
+        String normalized = str.replaceAll("\\s+", "").toLowerCase();
+        return isPalindrome(normalized, 0, normalized.length() - 1);
+    }
+
+    private boolean isPalindrome(String str, int start, int end) {
         if (start >= end) {
             return true;
         }
