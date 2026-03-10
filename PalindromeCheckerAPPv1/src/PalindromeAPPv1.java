@@ -5,10 +5,11 @@ public class PalindromeAPPv1 {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter a string to check palindrome:");
         String input = sc.nextLine();
-        if (isPalindrome(input, 0, input.length() - 1)) {
-            System.out.println("The string is a palindrome.");
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+        if (isPalindrome(normalized, 0, normalized.length() - 1)) {
+            System.out.println("The string is a palindrome (ignoring spaces and case).");
         } else {
-            System.out.println("The string is not a palindrome.");
+            System.out.println("The string is not a palindrome (ignoring spaces and case).");
         }
         sc.close();
     }
