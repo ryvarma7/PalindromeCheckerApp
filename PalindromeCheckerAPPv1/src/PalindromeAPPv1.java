@@ -1,31 +1,26 @@
 import java.util.Scanner;
+import java.util.Stack;
 import java.util.Deque;
 import java.util.ArrayDeque;
-import java.util.Stack;
 
 public class PalindromeAPPv1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter a string to check palindrome:");
+        System.out.println("Enter a string to check palindrome performance:");
         String input = sc.nextLine();
 
-        PalindromeStrategy strategy;
+        PalindromeStrategy stackStrategy = new StackStrategy();
+        PalindromeStrategy dequeStrategy = new DequeStrategy();
 
-        // Choose strategy dynamically (example: StackStrategy)
-        strategy = new StackStrategy();
-        if (strategy.isPalindrome(input)) {
-            System.out.println("StackStrategy: The string is a palindrome.");
-        } else {
-            System.out.println("StackStrategy: The string is not a palindrome.");
-        }
+        long startTime = System.nanoTime();
+        boolean stackResult = stackStrategy.isPalindrome(input);
+        long endTime = System.nanoTime();
+        System.out.println("StackStrategy result: " + stackResult + ", Time: " + (endTime - startTime) + " ns");
 
-        // Another example: DequeStrategy
-        strategy = new DequeStrategy();
-        if (strategy.isPalindrome(input)) {
-            System.out.println("DequeStrategy: The string is a palindrome.");
-        } else {
-            System.out.println("DequeStrategy: The string is not a palindrome.");
-        }
+        startTime = System.nanoTime();
+        boolean dequeResult = dequeStrategy.isPalindrome(input);
+        endTime = System.nanoTime();
+        System.out.println("DequeStrategy result: " + dequeResult + ", Time: " + (endTime - startTime) + " ns");
 
         sc.close();
     }
@@ -43,9 +38,7 @@ class StackStrategy implements PalindromeStrategy {
             stack.push(c);
         }
         for (char c : str.toCharArray()) {
-            if (stack.pop() != c) {
-                return false;
-            }
+            if (stack.pop() != c) return false;
         }
         return true;
     }
@@ -55,13 +48,9 @@ class DequeStrategy implements PalindromeStrategy {
     public boolean isPalindrome(String str) {
         str = str.replaceAll("\\s+", "").toLowerCase();
         Deque<Character> deque = new ArrayDeque<>();
-        for (char c : str.toCharArray()) {
-            deque.addLast(c);
-        }
+        for (char c : str.toCharArray()) deque.addLast(c);
         while (deque.size() > 1) {
-            if (deque.removeFirst() != deque.removeLast()) {
-                return false;
-            }
+            if (deque.removeFirst() != deque.removeLast()) return false;
         }
         return true;
     }
