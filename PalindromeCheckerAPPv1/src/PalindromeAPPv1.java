@@ -1,34 +1,25 @@
-/*
- * Program starts.
- * JVM invokes the main() method.
- * Application name is displayed.
- * Application version is displayed.
- * Program continues to next use case or exits
- * @author midhunreddy(jagan mavayya)
- */
+import java.util.Scanner;
 
 public class PalindromeAPPv1 {
-
     public static void main(String[] args) {
-
-        // Hardcoded string
-        String word = "madam";
-
-        // Reverse the string
-        String reversed = "";
-
-        for (int i = word.length() - 1; i >= 0; i--) {
-            reversed = reversed + word.charAt(i);
-        }
-
-        // Check if palindrome
-        if (word.equals(reversed)) {
-            System.out.println(word + " is a Palindrome.");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter a string to check palindrome:");
+        String input = sc.nextLine();
+        if (isPalindrome(input, 0, input.length() - 1)) {
+            System.out.println("The string is a palindrome.");
         } else {
-            System.out.println(word + " is NOT a Palindrome.");
+            System.out.println("The string is not a palindrome.");
         }
-        System.out.println("Welcome to the Palindrome Checker Management System");
-        System.out.println("Version : 1.0");
-        System.out.println("System Initialized......");
+        sc.close();
+    }
+
+    public static boolean isPalindrome(String str, int start, int end) {
+        if (start >= end) {
+            return true;
+        }
+        if (str.charAt(start) != str.charAt(end)) {
+            return false;
+        }
+        return isPalindrome(str, start + 1, end - 1);
     }
 }
